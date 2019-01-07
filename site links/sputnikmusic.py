@@ -27,7 +27,7 @@ sputnik = pywikibot.Page(site, u"Участник:NPBot/Sputnikmusic Upgrade")
 regex = r"https?://(?:www\.)?sputnikmusic\.com/(?:review/|album.php)[^ |\n]+"
 
 for page in site.search("insource:\"sputnikmusic.com/\"", [0], content=True):
-    links = [link for link in re.findall(regex, page.text, flags=re.I) if (check_user(link) or check_contributor(link))]
+    links = {link for link in re.findall(regex, page.text, flags=re.I) if (check_user(link) or check_contributor(link))}
     if links:
         sputnik.test = sputnik.text + config.line_separator + "* [[{}]]: {}\n".format(page.title(), " ".join(links))
     #pywikibot.output("{} - {}".format(page.title(), bool(links)))
