@@ -11,11 +11,14 @@ page = pywikibot.Page(site, u"Участник:NPBot/Черновик")
 summary = ""
 cleanup = ""
 
-if re.search(r"{{[З,з]аголовок курсивом}}", page.text):
-    page.text = re.sub(r"{{[З,з]аголовок курсивом}}", "", page.text)
-    if page.text[0] == "\n":
-        page.text = page.text[1:]
+if re.search(r"{{[З,з]аголовок курсивом}}\s*\n?", page.text):
+    page.text = re.sub(r"{{[З,з]аголовок курсивом}}\s*\n?", "", page.text)
     summary += "убран шаблон {{Заголовок курсивом}}, "
+if re.search(r"\|\s*Название\s*=\s*''.+?''", page.text):
+    for title in re.findall(r"\|\s*Название\s*=\s*''.+?''", page.text):
+        new_title = re.sub(r"''", "", title)
+        page.text = page.text.replace(title, new_title)
+    summary += "убрано курсивное написание названий альбомов, "
     
 if re.search(r"Peak\s?<br\s?\/?>\s?position", page.text):
     page.text = re.sub(r"Peak\s?<br\s?\/?>\s?position", "Высшая <br> позиция", page.text)
