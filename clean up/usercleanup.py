@@ -14,11 +14,20 @@ cleanup = ""
 if re.search(r"{{[З,з]аголовок курсивом}}\s*\n?", page.text):
     page.text = re.sub(r"{{[З,з]аголовок курсивом}}\s*\n?", "", page.text)
     summary += "убран шаблон {{Заголовок курсивом}}, "
-if re.search(r"\|\s*Название\s*=\s*''.+?''", page.text):
-    for title in re.findall(r"\|\s*Название\s*=\s*''.+?''", page.text):
-        new_title = re.sub(r"''", "", title)
-        page.text = page.text.replace(title, new_title)
-    summary += "убрано курсивное написание названий альбомов, "
+    
+titles_changed = False
+for i in range(2):
+    if re.search(r"(\|\s*(?:Название|Предыдущий|Следующий)\s*=\s*)'+(.+?)'+", page.text):
+        page.text = re.sub(r"(\|\s*(?:Название|Предыдущий|Следующий)\s*=\s*)'+(.+?)'+", "\\1\\2", page.text)
+        titles_changed = True
+    if re.search(r"(\|\s*(?:Название|Предыдущий|Следующий)\s*=\s*)«(.+?)»", page.text):
+        page.text = re.sub(r"(\|\s*(?:Название|Предыдущий|Следующий)\s*=\s*)«(.+?)»", "\\1\\2", page.text)
+        titles_changed = True
+    if re.search(r"(\|\s*(?:Название|Предыдущий|Следующий)\s*=\s)„(.+?)“", page.text):
+        page.text = re.sub(r"(\|\s*(?:Название|Предыдущий|Следующий)\s*=\s*)„(.+?)“", "\\1\\2", page.text)
+        titles_changed = True
+if titles_changed:
+    summary += "убрано оформление названий альбомов, "
     
 if re.search(r"Peak\s?<br\s?\/?>\s?position", page.text):
     page.text = re.sub(r"Peak\s?<br\s?\/?>\s?position", "Высшая <br> позиция", page.text)
