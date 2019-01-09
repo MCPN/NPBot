@@ -17,8 +17,8 @@ if re.search(r"{{[З,з]аголовок курсивом}}\s*\n?", page.text):
     
 titles_changed = False
 for i in range(2):
-    if re.search(r"(\|\s*(?:Название|Предыдущий|Следующий)\s*=\s*)'+(.+?)'+", page.text):
-        page.text = re.sub(r"(\|\s*(?:Название|Предыдущий|Следующий)\s*=\s*)'+(.+?)'+", "\\1\\2", page.text)
+    if re.search(r"(\|\s*(?:Название|Предыдущий|Следующий)\s*=\s*)('{5}|'{2,3})(.+?)\2", page.text):
+        page.text = re.sub(r"(\|\s*(?:Название|Предыдущий|Следующий)\s*=\s*)('{5}|'{2,3})(.+?)\2", "\\1\\3", page.text)
         titles_changed = True
     if re.search(r"(\|\s*(?:Название|Предыдущий|Следующий)\s*=\s*)«(.+?)»", page.text):
         page.text = re.sub(r"(\|\s*(?:Название|Предыдущий|Следующий)\s*=\s*)«(.+?)»", "\\1\\2", page.text)
