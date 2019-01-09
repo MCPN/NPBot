@@ -29,6 +29,10 @@ for i in range(2):
 if titles_changed:
     summary += "убрано оформление названий альбомов, "
     
+if re.search(r"\[\[:[К, к]атегория:\s?[А,а]льбомы по алфавиту\]\]\s*\n?", page.text):
+    page.text = re.sub(r"\[\[:[К, к]атегория:\s?[А,а]льбомы по алфавиту\]\]\s*\n?", "", page.text)
+    summary += "убрана [[Категория: Альбомы по алфавиту]], "
+    
 if re.search(r"Peak\s?<br\s?\/?>\s?position", page.text):
     page.text = re.sub(r"Peak\s?<br\s?\/?>\s?position", "Высшая <br> позиция", page.text)
     cleanup += "Peak position → Высшая позиция, "
