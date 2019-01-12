@@ -33,21 +33,22 @@ if re.search(r"\[\[:[К, к]атегория:\s?[А,а]льбомы по алф�
     page.text = re.sub(r"\[\[:[К, к]атегория:\s?[А,а]льбомы по алфавиту\]\]\s*\n?", "", page.text)
     summary += "убрана [[Категория: Альбомы по алфавиту]], "
     
-if re.search(r"Peak\s?<br\s?\/?>\s?position", page.text):
-    page.text = re.sub(r"Peak\s?<br\s?\/?>\s?position", "Высшая <br> позиция", page.text)
+if re.search(r"Peak\s?<\/?br\s?\/?>\s?position", page.text):
+    page.text = re.sub(r"Peak\s?<\/?br\s?\/?>\s?position", "Высшая <br> позиция", page.text)
     cleanup += "Peak position → Высшая позиция, "
-if re.search(r"<br\s?\/>", page.text):
+if re.search(r"<br\s?\/>", page.text) or re.search(r"<\/?br\s?>", page.text):
     page.text = re.sub(r"<br\s?\/>", "<br>", page.text)
+    page.text = re.sub(r"<\/?br\s?>", "<br>", page.text)
     cleanup += "<br /> → <br>, "
     
-if re.search(r"==\s?References\s?==", page.text):
-    page.text = re.sub(r"==\s?References\s?==", "== Примечания ==", page.text)
+if re.search(r"==\s?[R,r]eferences\s?==", page.text):
+    page.text = re.sub(r"==\s?[R,r]eferences\s?==", "== Примечания ==", page.text)
     cleanup += "References → Примечания, "
 if re.search(r"{{[R,r]eflist}}", page.text):
     page.text = re.sub(r"{{[R,r]eflist}}", "{{Примечания}}", page.text)
     cleanup += "{{Reflist}} → {{Примечания}}, "
-if re.search(r"==\s?External links\s?==", page.text):
-    page.text = re.sub(r"==\s?External links\s?==", "== Ссылки ==", page.text)
+if re.search(r"==\s?[E,e]xternal links\s?==", page.text):
+    page.text = re.sub(r"==\s?[E,e]xternal links\s?==", "== Ссылки ==", page.text)
     cleanup += "External links → Ссылки, "
 
 if cleanup:
