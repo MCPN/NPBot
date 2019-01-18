@@ -20,7 +20,7 @@ def check_user(link):
 
 def check_contributor(link):
     try:
-        return re.findall(r"Review\s?</h2>by(?:.+?)<font size=1 face=Arial class=brighttext>CONTRIBUTOR</font>", 
+        return re.search(r"Review </h2>by <b>\n(?:.+?)<font size=1 face=Arial class=brighttext>CONTRIBUTOR</font>", 
                           urlopen(link).read().decode("utf-8"))
     except:
         return False
