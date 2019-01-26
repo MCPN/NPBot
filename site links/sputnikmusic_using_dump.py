@@ -9,7 +9,7 @@ from pywikibot import config
 from pywikibot import xmlreader
 from pywikibot import output
 
-REGEXP = r"(https?://(?:www\.)?sputnikmusic\.com/(?:review/|album\.php).+?)/?[\s|}]"
+REGEXP = r"(https?://(?:www\.)?sputnikmusic\.com/(?:review/|album\.php).+?)/?[\s|}\]]"
 
 
 def check_user(link):
