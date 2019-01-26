@@ -8,7 +8,7 @@ from pywikibot import config
 from pywikibot import xmlreader
 from pywikibot import output
 
-REGEXP = r"(https?://(?:www\.)?headbanger\.ru.+?)/?[\s|}]"
+REGEXP = r"(https?://(?:www\.)?headbanger\.ru.*?)/?[\s|}\]]"
 
 def main():
     dump = xmlreader.XmlDump("c:\\Users\\mcpn\\PyWikiBot\\dump\\ruwiki.xml.bz2")
