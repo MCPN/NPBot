@@ -2,14 +2,13 @@
 # -*- coding: utf-8 -*-
 
 from collections import Counter
-#from time import clock
 import re
 from urllib.request import urlopen
 import pywikibot
 from pywikibot import config
 from pywikibot import output
 
-REGEXP = r"(https?://(?:www\.)?sputnikmusic\.com/(?:review/|album\.php).+?)/?[\s|}]"
+REGEXP = r"(https?://(?:www\.)?sputnikmusic\.com/(?:review/|album\.php).+?)/?[\s|}\]]"
 
 
 def check_user(link):
@@ -64,7 +63,7 @@ def main():
             output("%i pages read..." % readPagesCount)
     
     sputnik.text = re.sub(r"Текущее количество: (\d+)", r"Текущее количество: {}".format(badPagesCount - done), sputnik.text)
-    sputnik.save(u"Убраны отработанные ссылки")
+    sputnik.save(u"убраны отработанные ссылки")
 
 if __name__ == "__main__":
     main()    
