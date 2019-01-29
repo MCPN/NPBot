@@ -11,7 +11,7 @@ REGEXP = r"(https?://(?:www\.)?headbanger\.ru.*?)/?[\s|}\]]"
 
 def main():
     site = pywikibot.Site()
-    headbanger = pywikibot.Page(site, u"Участник:NPBot/Headbanger.ru")
+    headbanger = pywikibot.Page(site, u"Проект:Музыка/Неавторитетные источники/Headbanger.ru")
     badPagesCount = int(re.findall(r"Текущее количество: (\d+)", headbanger.text)[0])
     readPagesCount = 0
     done = 0
@@ -39,7 +39,7 @@ def main():
             headbanger.text = headbanger.text.replace(string, new_string)
             
         readPagesCount += 1
-        if readPagesCount % 10 == 0:
+        if readPagesCount % 50 == 0:
             output("%i pages read..." % readPagesCount)
     
     headbanger.text = re.sub(r"Текущее количество: (\d+)", r"Текущее количество: {}".format(badPagesCount - done), headbanger.text)
