@@ -30,8 +30,8 @@ def check_contributor(link):
 def main():
     dump = xmlreader.XmlDump("c:\\Users\\mcpn\\PyWikiBot\\dump\\ruwiki.xml.bz2")
     site = pywikibot.Site()
-    sputnik = pywikibot.Page(site, u"Участник:NPBot/Sputnikmusic Upgrade")
-    whitelist = pywikibot.Page(site, u"Участник:NPBot/Sputnikmusic Upgrade/Whitelist")
+    sputnik = pywikibot.Page(site, u"Проект:Музыка/Неавторитетные источники/Sputnikmusic")
+    whitelist = pywikibot.Page(site, u"Проект:Музыка/Неавторитетные источники/Sputnikmusic/Whitelist")
     goodLinks = set(whitelist.text.split())
     goodPages = set(re.findall(r"\[\[(.+?)\]\]", sputnik.text))
     badPagesCount = int(re.findall(r"Текущее количество: (\d+)", sputnik.text)[0])
