@@ -13,7 +13,7 @@ REGEXP = r"(https?://(?:www\.)?headbanger\.ru.*?)/?[\s|}\]]"
 def main():
     dump = xmlreader.XmlDump("c:\\Users\\mcpn\\PyWikiBot\\dump\\ruwiki.xml.bz2")
     site = pywikibot.Site()
-    headbanger = pywikibot.Page(site, u"Участник:NPBot/Headbanger.ru")
+    headbanger = pywikibot.Page(site, u"Проект:Музыка/Неавторитетные источники/Headbanger.ru")
     goodPages = set(re.findall(r"\[\[(.+?)\]\]", headbanger.text))
     badPagesCount = int(re.findall(r"Текущее количество: (\d+)", headbanger.text)[0])
     readPagesCount = 0
