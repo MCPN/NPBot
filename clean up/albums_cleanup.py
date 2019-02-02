@@ -27,7 +27,7 @@ def main():
             if re.search(r"({{[М,м]узыкальный альбом.*?\|\s*(?:Название|Предыдущий|Следующий)\s*=\s*)«(.+?)»", page.text, re.DOTALL):
                 page.text = re.sub(r"({{[М,м]узыкальный альбом.*?\|\s*(?:Название|Предыдущий|Следующий)\s*=\s*)«(.+?)»", "\\1\\2", page.text, re.DOTALL)
                 titles_changed = True
-            if re.search(r"({{[М,м]узыкальный альбом.*?\|\s*(?:Название|Предыдущий|Следующий)\s*=\s)„(.+?)“", page.text, re.DOTALL):
+            if re.search(r"({{[М,м]узыкальный альбом.*?\|\s*(?:Название|Предыдущий|Следующий)\s*=\s*)„(.+?)“", page.text, re.DOTALL):
                 page.text = re.sub(r"({{[М,м]узыкальный альбом.*?\|\s*(?:Название|Предыдущий|Следующий)\s*=\s*)„(.+?)“", "\\1\\2", page.text, re.DOTALL)
                 titles_changed = True
         if titles_changed:
