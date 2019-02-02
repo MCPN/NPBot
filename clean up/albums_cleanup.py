@@ -21,14 +21,14 @@ def main():
             
         titles_changed = False
         for i in range(2):
-            if re.search(r"({{[М,м]узыкальный альбом.*?\|\s*(?:Название|Предыдущий|Следующий)\s*=\s*)('{5}|'{2,3})(.+?)\2", page.text, re.DOTALL):
-                page.text = re.sub(r"({{[М,м]узыкальный альбом.*?\|\s*(?:Название|Предыдущий|Следующий)\s*=\s*)('{5}|'{2,3})(.+?)\2", "\\1\\3", page.text, re.DOTALL)
+            if re.search(r"((?:{{[М,м]узыкальный альбом[^{}]*?\|\s*Название|\|\s*Предыдущий|\|\s*Следующий)\s*=\s*)('{5}|'{2,3})(.+?)\2(\s*[\n|])", page.text):
+                page.text = re.sub(r"((?:{{[М,м]узыкальный альбом[^{}]*?\|\s*Название|\|\s*Предыдущий|\|\s*Следующий)\s*=\s*)('{5}|'{2,3})(.+?)\2(\s*[\n|])", "\\1\\3\\4", page.text)
                 titles_changed = True
-            if re.search(r"({{[М,м]узыкальный альбом.*?\|\s*(?:Название|Предыдущий|Следующий)\s*=\s*)«(.+?)»", page.text, re.DOTALL):
-                page.text = re.sub(r"({{[М,м]узыкальный альбом.*?\|\s*(?:Название|Предыдущий|Следующий)\s*=\s*)«(.+?)»", "\\1\\2", page.text, re.DOTALL)
+            if re.search(r"((?:{{[М,м]узыкальный альбом[^{}]*?\|\s*Название|\|\s*Предыдущий|\|\s*Следующий)\s*=\s*)«(.+?)»(\s*[\n|])", page.text):
+                page.text = re.sub(r"((?:{{[М,м]узыкальный альбом[^{}]*?\|\s*Название|\|\s*Предыдущий|\|\s*Следующий)\s*=\s*)«(.+?)»(\s*[\n|])", "\\1\\2\\3", page.text)
                 titles_changed = True
-            if re.search(r"({{[М,м]узыкальный альбом.*?\|\s*(?:Название|Предыдущий|Следующий)\s*=\s*)„(.+?)“", page.text, re.DOTALL):
-                page.text = re.sub(r"({{[М,м]узыкальный альбом.*?\|\s*(?:Название|Предыдущий|Следующий)\s*=\s*)„(.+?)“", "\\1\\2", page.text, re.DOTALL)
+            if re.search(r"((?:{{[М,м]узыкальный альбом[^{}]*?\|\s*Название|\|\s*Предыдущий|\|\s*Следующий)\s*=\s*)„(.+?)“(\s*[\n|])", page.text):
+                page.text = re.sub(r"((?:{{[М,м]узыкальный альбом[^{}]*?\|\s*Название|\|\s*Предыдущий|\|\s*Следующий)\s*=\s*)„(.+?)“(\s*[\n|])", "\\1\\2\\3", page.text)
                 titles_changed = True
         if titles_changed:
             summary += "убрано оформление названий альбомов, "
@@ -41,7 +41,7 @@ def main():
         if re.search(r"Peak\s?{}\s?position".format(br), page.text):
             page.text = re.sub(r"Peak\s?{}\s?position".format(br), "Высшая<br>позиция", page.text)
             cleanup += "Peak position → Высшая позиция, "
-        if len(re.findall(r"{}".format(br), page.text)) != len(re.findall(r"<br>", page.text)):
+        if len(re.findall(r"{}".format(br), page.text)) > len(re.findall(r"<br>", page.text)):
             page.text = re.sub(r"{}".format(br), "<br>", page.text)
             cleanup += "<br /> → <br>, "
             
