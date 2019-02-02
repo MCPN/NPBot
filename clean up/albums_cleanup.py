@@ -21,14 +21,14 @@ def main():
             
         titles_changed = False
         for i in range(2):
-            if re.search(r"(\|\s*(?:Название|Предыдущий|Следующий)\s*=\s*)('{5}|'{2,3})(.+?)\2", page.text):
-                page.text = re.sub(r"(\|\s*(?:Название|Предыдущий|Следующий)\s*=\s*)('{5}|'{2,3})(.+?)\2", "\\1\\3", page.text)
+            if re.search(r"({{[М,м]узыкальный альбом.*?\|\s*(?:Название|Предыдущий|Следующий)\s*=\s*)('{5}|'{2,3})(.+?)\2", page.text, re.DOTALL):
+                page.text = re.sub(r"({{[М,м]узыкальный альбом.*?\|\s*(?:Название|Предыдущий|Следующий)\s*=\s*)('{5}|'{2,3})(.+?)\2", "\\1\\3", page.text, re.DOTALL)
                 titles_changed = True
-            if re.search(r"(\|\s*(?:Название|Предыдущий|Следующий)\s*=\s*)«(.+?)»", page.text):
-                page.text = re.sub(r"(\|\s*(?:Название|Предыдущий|Следующий)\s*=\s*)«(.+?)»", "\\1\\2", page.text)
+            if re.search(r"({{[М,м]узыкальный альбом.*?\|\s*(?:Название|Предыдущий|Следующий)\s*=\s*)«(.+?)»", page.text, re.DOTALL):
+                page.text = re.sub(r"({{[М,м]узыкальный альбом.*?\|\s*(?:Название|Предыдущий|Следующий)\s*=\s*)«(.+?)»", "\\1\\2", page.text, re.DOTALL)
                 titles_changed = True
-            if re.search(r"(\|\s*(?:Название|Предыдущий|Следующий)\s*=\s)„(.+?)“", page.text):
-                page.text = re.sub(r"(\|\s*(?:Название|Предыдущий|Следующий)\s*=\s*)„(.+?)“", "\\1\\2", page.text)
+            if re.search(r"({{[М,м]узыкальный альбом.*?\|\s*(?:Название|Предыдущий|Следующий)\s*=\s)„(.+?)“", page.text, re.DOTALL):
+                page.text = re.sub(r"({{[М,м]узыкальный альбом.*?\|\s*(?:Название|Предыдущий|Следующий)\s*=\s*)„(.+?)“", "\\1\\2", page.text, re.DOTALL)
                 titles_changed = True
         if titles_changed:
             summary += "убрано оформление названий альбомов, "
@@ -62,7 +62,7 @@ def main():
             page.save(u"{}".format(summary))
             
         readPagesCount += 1
-        if readPagesCount % 50 == 0:
+        if readPagesCount % 100 == 0:
             output("%i pages read..." % readPagesCount)
     
 if __name__ == "__main__":
