@@ -19,6 +19,7 @@ def main():
     for string in mastersland.text.split("\n"):
         if not string or string[0] != "#":
             continue
+        
         title = re.findall(r"\[\[(.+?)\]\]", string)[0]
         page = pywikibot.Page(site, u"{}".format(title))
         links = [link for link in re.findall(REGEXP, page.text, flags=re.I)]
@@ -36,7 +37,7 @@ def main():
                 new_string += "[{}] ".format(link[0])
                 if link[1] > 1:
                     new_string += "(x{}) ".format(link[1])
-            mastersland.text = mastersland.text.replace(string, new_string)
+            mastersland.text = mastersland.text.replace(string, new_string[:-1:])
             
         readPagesCount += 1
         if readPagesCount % 50 == 0:
