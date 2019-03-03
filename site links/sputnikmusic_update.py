@@ -56,7 +56,7 @@ def main():
                 new_string += "[{}] ".format(link[0])
                 if link[1] > 1:
                     new_string += "(x{}) ".format(link[1])
-            sputnik.text = sputnik.text.replace(string, new_string)
+            sputnik.text = sputnik.text.replace(string, new_string[:-1:])
             
         readPagesCount += 1
         if readPagesCount % 10 == 0:
