@@ -33,7 +33,7 @@ def main():
         else:   
             clink = Counter(links)
             new_string = "# [[{}]]: ".format(title)
-            for link in clink.most_common():
+            for link in sorted(clink.most_common()):
                 new_string += "[{}] ".format(link[0])
                 if link[1] > 1:
                     new_string += "(x{}) ".format(link[1])
@@ -47,4 +47,4 @@ def main():
     mastersland.save(u"убраны отработанные ссылки")
 
 if __name__ == "__main__":
-    main()    
+    main()
