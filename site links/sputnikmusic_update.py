@@ -8,20 +8,12 @@ import pywikibot
 from pywikibot import config
 from pywikibot import output
 
-REGEXP = r"(https?://(?:www\.)?sputnikmusic\.com/(?:review/|album\.php).+?)/?[\s|}\]]"
+REGEXP = r"(https?://(?:www\.)?sputnikmusic\.com/(?:review/|album\.php).+?)/?[\s|}\]]#"
 
 
 def check_user(link):
     try:
         return "<font size=1 face=Arial class=brighttext>USER</font>" in urlopen(link).read().decode("iso-8859-1")
-    except:
-        return False
-    
-
-def check_contributor(link):
-    try:
-        return re.search(r"Review </h2>by <b>\n(?:.+?)<font size=1 face=Arial class=brighttext>CONTRIBUTOR</font>", 
-                          urlopen(link).read().decode("iso-8859-1"))
     except:
         return False
     
@@ -41,7 +33,7 @@ def main():
         title = re.findall(r"\[\[(.+?)\]\]", string)[0]
         page = pywikibot.Page(site, u"{}".format(title))
         links = [re.sub(r"http://", "https://", link) for link in re.findall(REGEXP, page.text, flags=re.I) 
-                 if re.sub(r"http://", "https://", link) not in goodLinks and (check_user(link) or check_contributor(link))]
+                 if re.sub(r"http://", "https://", link) not in goodLinks and check_user(link)]
         
         if not links:
             if readPagesCount == badPagesCount - 1:
@@ -52,7 +44,7 @@ def main():
         else:   
             clink = Counter(links)
             new_string = "# [[{}]]: ".format(title)
-            for link in clink.most_common():
+            for link in sorted(clink.most_common()):
                 new_string += "[{}] ".format(link[0])
                 if link[1] > 1:
                     new_string += "(x{}) ".format(link[1])
@@ -66,4 +58,4 @@ def main():
     sputnik.save(u"убраны отработанные ссылки")
 
 if __name__ == "__main__":
-    main()    
+    main()
