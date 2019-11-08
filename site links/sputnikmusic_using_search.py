@@ -8,7 +8,7 @@ import pywikibot
 from pywikibot import config
 from pywikibot import output
 
-REGEXP = r"(https?://(?:www\.)?sputnikmusic\.com/(?:review/|album\.php).+?)/?[\s|}\]]"
+REGEXP = r"(https?://(?:www\.)?sputnikmusic\.com/(?:review/|album\.php).+?)/?[\s|}\]#]"
 
 
 def check_user(link):
@@ -16,16 +16,6 @@ def check_user(link):
         return "<font size=1 face=Arial class=brighttext>USER</font>" in urlopen(link).read().decode("iso-8859-1")
     except:
         return False
-    
-
-'''
-def check_contributor(link):
-    try:
-        return re.search(r"Review </h2>by <b>\n(?:.+?)<font size=1 face=Arial class=brighttext>CONTRIBUTOR</font>", 
-                          urlopen(link).read().decode("iso-8859-1"))
-    except:
-        return False
-'''
     
 
 def main():
@@ -42,13 +32,13 @@ def main():
         if page.title() in goodPages:
             continue
         links = [re.sub(r"http://", "https://", link) for link in re.findall(REGEXP, page.text, flags=re.I) 
-                 if re.sub(r"http://", "https://", link) not in goodLinks and (check_user(link))]
+                 if re.sub(r"http://", "https://", link) not in goodLinks and check_user(link)]
             
         if links:
             added += 1
             clink = Counter(links)
             new_string = "# [[{}]]: ".format(page.title())
-            for link in clink.most_common():
+            for link in sorted(clink.most_common()):
                 new_string += "[{}] ".format(link[0])
                 if link[1] > 1:
                     new_string += "(x{}) ".format(link[1])                
