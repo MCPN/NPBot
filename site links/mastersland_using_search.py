@@ -7,7 +7,7 @@ import pywikibot
 from pywikibot import config
 from pywikibot import output
 
-REGEXP = r"(https?://(?:www\.)?mastersland\.com.*?)/?[\s|}\]]"
+REGEXP = r"(https?://(?:www\.)?mastersland\.com.*?)/?[\s|}\]#<>]"
 
 def main():
     site = pywikibot.Site()

@@ -5,10 +5,9 @@ from collections import Counter
 import re
 from urllib.request import urlopen
 import pywikibot
-from pywikibot import config
 from pywikibot import output
 
-REGEXP = r"(https?://(?:www\.)?sputnikmusic\.com/(?:review/|album\.php).+?)/?[\s|}\]]#"
+REGEXP = r"(https?://(?:www\.)?sputnikmusic\.com/(?:review/|album\.php).+?)/?[\s|}\]#<>]"
 
 
 def check_user(link):
