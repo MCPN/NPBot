@@ -20,8 +20,7 @@ def main():
         page_name = site_name[0].upper() + site_name[1:]
         site_regexp = REGEXP.format(site_name.replace(".", "\."))
 
-        #list_page = pywikibot.Page(site, u"Проект:Музыка/Неавторитетные источники/{}".format(page_name))
-        list_page = pywikibot.Page(site, u"Участник:NPBot/Черновик")
+        list_page = pywikibot.Page(site, u"Проект:Музыка/Неавторитетные источники/{}".format(page_name))
         good_pages = set(re.findall(r"\[\[(.+?)\]\]", list_page.text))
         bad_pages_count = int(re.findall(r"Текущее количество: (\d+)", list_page.text)[0])
         read_pages_count = 0
