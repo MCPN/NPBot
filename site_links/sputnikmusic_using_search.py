@@ -22,20 +22,19 @@ def main():
     site = pywikibot.Site()
     sputnik = pywikibot.Page(site, u"Проект:Музыка/Неавторитетные источники/Sputnikmusic")
     whitelist = pywikibot.Page(site, u"Проект:Музыка/Неавторитетные источники/Sputnikmusic/Whitelist")
-    goodLinks = set(whitelist.text.split())
-    goodPages = set(re.findall(r"\[\[(.+?)\]\]", sputnik.text))
-    badPagesCount = int(re.findall(r"Текущее количество: (\d+)", sputnik.text)[0])
-    readPagesCount = 0
-    added = 0
+    good_links = set(whitelist.text.split())
+    good_pages = set(re.findall(r"\[\[(.+?)\]\]", sputnik.text))
+    bad_pages_count = int(re.findall(r"Текущее количество: (\d+)", sputnik.text)[0])
+    read_pages_count = 0
     
     for page in site.search("insource:\"sputnikmusic.com\"", [0], content=True):
-        if page.title() in goodPages:
+        if page.title() in good_pages:
             continue
         links = [re.sub(r"http://", "https://", link) for link in re.findall(REGEXP, page.text, flags=re.I) 
-                 if re.sub(r"http://", "https://", link) not in goodLinks and check_user(link)]
+                 if re.sub(r"http://", "https://", link) not in good_links and check_user(link)]
             
         if links:
-            added += 1
+            bad_pages_count += 1
             clink = Counter(links)
             new_string = "# [[{}]]: ".format(page.title())
             for link in sorted(clink.most_common()):
@@ -44,12 +43,13 @@ def main():
                     new_string += "(x{}) ".format(link[1])                
                 sputnik.text = sputnik.text + config.line_separator + new_string
 
-        readPagesCount += 1
-        if readPagesCount % 50 == 0:
-            output("%i pages read..." % readPagesCount)
+        read_pages_count += 1
+        if read_pages_count % 50 == 0:
+            output("%i pages read..." % read_pages_count)
             
-    sputnik.text = re.sub(r"Текущее количество: (\d+)", r"Текущее количество: {}".format(badPagesCount + added), sputnik.text)
-    sputnik.save(u"список обновлен через поиск")
+    sputnik.text = re.sub(r"Текущее количество: (\d+)", r"Текущее количество: {}".format(bad_pages_count), sputnik.text)
+    sputnik.save(u"обновление списка")
+
 
 if __name__ == "__main__":
     main()

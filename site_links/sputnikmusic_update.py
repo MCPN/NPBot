@@ -20,11 +20,11 @@ def check_user(link):
 def main():
     site = pywikibot.Site()
     sputnik = pywikibot.Page(site, u"Проект:Музыка/Неавторитетные источники/Sputnikmusic")
+    sputnik.text = sputnik.text + '\n'
     whitelist = pywikibot.Page(site, u"Проект:Музыка/Неавторитетные источники/Sputnikmusic/Whitelist")
-    goodLinks = set(whitelist.text.split())
-    badPagesCount = int(re.findall(r"Текущее количество: (\d+)", sputnik.text)[0])
-    readPagesCount = 0
-    done = 0
+    good_links = set(whitelist.text.split())
+    bad_pages_count = int(re.findall(r"Текущее количество: (\d+)", sputnik.text)[0])
+    read_pages_count = 0
     
     for string in sputnik.text.split("\n"):
         if not string or string[0] != "#":
@@ -32,14 +32,11 @@ def main():
         title = re.findall(r"\[\[(.+?)\]\]", string)[0]
         page = pywikibot.Page(site, u"{}".format(title))
         links = [re.sub(r"http://", "https://", link) for link in re.findall(REGEXP, page.text, flags=re.I) 
-                 if re.sub(r"http://", "https://", link) not in goodLinks and check_user(link)]
+                 if re.sub(r"http://", "https://", link) not in good_links and check_user(link)]
         
         if not links:
-            if readPagesCount == badPagesCount - 1:
-                sputnik.text = sputnik.text.replace("{}".format(string), "")
-            else:
-                sputnik.text = sputnik.text.replace("{}\n".format(string), "")
-            done += 1
+            sputnik.text = sputnik.text.replace("{}\n".format(string), "")
+            bad_pages_count -= 1
         else:   
             clink = Counter(links)
             new_string = "# [[{}]]: ".format(title)
@@ -49,12 +46,13 @@ def main():
                     new_string += "(x{}) ".format(link[1])
             sputnik.text = sputnik.text.replace(string, new_string[:-1:])
             
-        readPagesCount += 1
-        if readPagesCount % 10 == 0:
-            output("%i pages read..." % readPagesCount)
+        read_pages_count += 1
+        if read_pages_count % 10 == 0:
+            output("%i pages read..." % read_pages_count)
     
-    sputnik.text = re.sub(r"Текущее количество: (\d+)", r"Текущее количество: {}".format(badPagesCount - done), sputnik.text)
-    sputnik.save(u"убраны отработанные ссылки")
+    sputnik.text = re.sub(r"Текущее количество: (\d+)", r"Текущее количество: {}".format(bad_pages_count), sputnik.text)
+    sputnik.save(u"обновление ссылок")
+
 
 if __name__ == "__main__":
     main()
