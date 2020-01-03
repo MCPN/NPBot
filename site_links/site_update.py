@@ -10,6 +10,7 @@ REGEXP = r"(https?://(?:www\.)?{}.*?)/?[\s|}}\]#<>]"
 SITE_NAMES = [
     "headbanger.ru",
     "mastersland.com",
+    "rockcult.ru",
 ]
 
 
