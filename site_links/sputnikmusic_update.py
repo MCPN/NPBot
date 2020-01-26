@@ -1,11 +1,15 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from collections import Counter
 import re
 from urllib.request import urlopen
+
 import pywikibot
-from pywikibot import output
+
+from utils import (
+    create_links_string,
+    read_log,
+)
 
 REGEXP = r"(https?://(?:www\.)?sputnikmusic\.com/(?:review/|album\.php).+?)/?[\s|}\]#<>]"
 
@@ -38,17 +42,10 @@ def main():
             sputnik.text = sputnik.text.replace("{}\n".format(string), "")
             bad_pages_count -= 1
         else:   
-            clink = Counter(links)
-            new_string = "# [[{}]]: ".format(title)
-            for link in sorted(clink.most_common()):
-                new_string += "[{}] ".format(link[0])
-                if link[1] > 1:
-                    new_string += "(x{}) ".format(link[1])
-            sputnik.text = sputnik.text.replace(string, new_string[:-1:])
-            
+            links_string = create_links_string(links, page)
+            sputnik.text = sputnik.text.replace(string, links_string[:-1:])
         read_pages_count += 1
-        if read_pages_count % 10 == 0:
-            output("%i pages read..." % read_pages_count)
+        read_log(read_pages_count, modulo=10)
     
     sputnik.text = re.sub(r"Текущее количество: (\d+)", r"Текущее количество: {}".format(bad_pages_count), sputnik.text)
     sputnik.save(u"обновление ссылок")
