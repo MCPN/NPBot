@@ -10,6 +10,7 @@ SITE_NAMES = [
     "rockcult.ru",
     "astartaview.ru",
     "metalfan.nl",
+    "heavymusic.ru",
 ]
 
 
