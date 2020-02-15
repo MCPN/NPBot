@@ -11,6 +11,7 @@ SITE_NAMES = [
     "astartaview.ru",
     "metalfan.nl",
     "heavymusic.ru",
+    "metallibrary.ru"
 ]
 
 
