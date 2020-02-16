@@ -11,7 +11,12 @@ SITE_NAMES = [
     "astartaview.ru",
     "metalfan.nl",
     "heavymusic.ru",
-    "metallibrary.ru"
+    "metallibrary.ru",
+    "metalkings.ru",
+    "metalrus.ru",
+    "metalfront.org",
+    "metalscript.net",
+    "metalunderground.com",
 ]
 
 
