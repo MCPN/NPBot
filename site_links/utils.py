@@ -3,7 +3,7 @@ from collections import Counter
 import pywikibot
 from pywikibot import output
 
-REGEXP = r"(https?://(?:www\.)?{}.*?)/?[\s|}}\]#<>]"
+REGEXP = r"(https?://(?:www\.)?{}.*?)/?[\s|}}\]#<>]\"«»"
 SITE_NAMES = [
     "headbanger.ru",
     "mastersland.com",
