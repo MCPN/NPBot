@@ -14,6 +14,8 @@ SITE_NAMES = [
     "metallibrary.ru",
     "metalkings.ru",
     "metalrus.ru",
+    "metalrus.org",
+    "metalrus.net",
     "metalfront.org",
     "metalscript.net",
     "metalunderground.com",
