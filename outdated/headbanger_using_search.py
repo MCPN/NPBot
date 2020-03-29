@@ -29,7 +29,7 @@ def main():
                 new_string += "[{}] ".format(link[0])
                 if link[1] > 1:
                     new_string += "(x{}) ".format(link[1])                
-            headbanger.text = headbanger.text + config.line_separator + new_string
+            headbanger.text = headbanger.text + '\n' + new_string
 
         readPagesCount += 1
         if readPagesCount % 50 == 0:

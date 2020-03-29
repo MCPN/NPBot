@@ -40,7 +40,7 @@ def main():
         if links:
             bad_pages_count += 1
             links_string = create_links_string(links, page)
-            sputnik.text = sputnik.text + config.line_separator + links_string[:-1:]
+            sputnik.text = sputnik.text + '\n' + links_string[:-1:]
         read_pages_count += 1
         read_log(read_pages_count)
             
