@@ -4,7 +4,6 @@
 import re
 
 import pywikibot
-from pywikibot import config
 
 from utils import (
     SITE_NAMES,

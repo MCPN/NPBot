@@ -5,7 +5,6 @@ import re
 from urllib.request import urlopen
 
 import pywikibot
-from pywikibot import config
 
 from utils import (
     create_links_string,
