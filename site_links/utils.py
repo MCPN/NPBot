@@ -19,12 +19,16 @@ SITE_NAMES = [
     "metalfront.org",
     "metalscript.net",
     "metalunderground.com",
+    "outstyle.org",
 ]
 
 
 def generate_list_page(site, site_name):
     page_name = site_name[0].upper() + site_name[1:]
-    site_regexp = REGEXP.format(site_name.replace(".", "\."))
+    if site == "headbanger.ru":
+        site_regexp = REGEXP.format(site_name.replace(".", "\.") + "/(?:reviews|concerts|reports)")
+    else:
+        site_regexp = REGEXP.format(site_name.replace(".", "\."))
     list_page = pywikibot.Page(site, u"Проект:Музыка/Неавторитетные источники/{}".format(page_name))
     return page_name, site_regexp, list_page
 
