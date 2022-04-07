@@ -11,7 +11,7 @@ from utils import (
     read_log,
 )
 
-REGEXP = r"(https?://(?:www\.)?dtf\.ru/games/.+?)/?[\s|}\]#<>]"
+REGEXP =
 
 
 def check_user(link):
